@@ -81,7 +81,7 @@ function _clickBtn(e) {
 
     ansNum = ansNum + 1
 
-    console.log('当前答题次数', ansNum)
+    // console.log('当前答题次数', ansNum)
 
     if ($('#list').attr('data-role') == 'practice') {
 
@@ -154,7 +154,7 @@ function _clickBtn(e) {
 
         $obj[$level] = chose
 
-        console.log('$obj', $obj)
+        // console.log('$obj', $obj)
 
 
         if (errorNum >= 2) {

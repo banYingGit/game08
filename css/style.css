@@ -1,0 +1,248 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    color: #002e73;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.img-box img {
+    display: block;
+    width: 100%;
+}
+
+img {
+    vertical-align: middle
+}
+
+.screen {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url("../img/bg1.jpg") center no-repeat;
+    background-size: 100% 100%;
+}
+
+.screen1 {
+    background: url("../img/bg2.jpg") center no-repeat;
+    background-size: 100% 100%;
+
+}
+
+.logo {
+    width: 40%;
+    margin: 10% auto 5% auto
+}
+
+/* 文字说明背景 */
+.box-bg {
+    width: 70%;
+    padding: 3%;
+    margin: 0 auto 5% auto;
+    background: rgba(255, 252, 233, .8);
+    border: solid 1px #026897;
+    border-radius: 20px;
+}
+
+.box-bg-top {
+    margin-top: 20%
+}
+
+/* 文字说明样式1 带有图标的列表 */
+.box-text-1 {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.box-text-1 li {
+    position: relative;
+    padding-left: 4.5%;
+    letter-spacing: 3px;
+}
+
+.box-text-1 li i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4.5%;
+    content: '';
+}
+
+.box-text-1 li i img {
+    width: 60%;
+    vertical-align: inherit;
+}
+
+/* 文字说明样式2  文字剧中显示 */
+.box-text-2 {
+    padding: 2% 0 4% 0;
+    line-height: 200%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.box-text-2 p span {
+    color: #00479d;
+}
+
+/* 按钮样式 */
+.button-box {
+    width: 100%;
+    height: 9.5%;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    height: 100%;
+    background: #29c4bf;
+    color: #fff;
+    padding: 0 40px;
+    text-shadow: 2px 2px 2px #666;
+    letter-spacing: 20px;
+    text-indent: 20px;
+    border: solid 1px #29c4bf;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px -3px #a1a090;
+}
+
+.button-box-s .button {
+    margin: 0 3%;
+}
+
+/* 游戏结束 */
+.over-text {
+    margin: 20% auto 10% auto;
+    text-align: center;
+    font-size: 54px;
+    line-height: 80px;
+}
+
+/** 游戏界面 **/
+.part {
+    position: fixed;
+    height: 78%;
+    top: 8%;
+    z-index: 1;
+    /*background: rgba(215, 241, 249, 0.8);*/
+}
+
+.partA {
+
+    left: 26%;
+
+}
+
+.partB {
+    right: 26%;
+}
+
+.part .bead {
+    position: absolute;
+    width: 26%;
+    top: 90%;
+    left: 34%;
+    z-index: 1;
+    background: url("../img/baozhu.png") no-repeat top center;
+    background-size: 100% auto;
+}
+
+.part .basin {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.part .basin:after {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    font-size: 90px;
+    color: #ff6c00;
+    content: attr(data-result);
+}
+
+.partA .basin {
+    background: url("../img/bo1.png") no-repeat top center;
+    background-size: 100% auto;
+}
+.partA .basin:after{
+    left: -50%;
+}
+.partB .basin {
+    background: url("../img/bo2.png") no-repeat top center;
+    background-size: 100% auto;
+}
+.partB .basin:after{
+    right: -50%;
+}
+.part-text {
+    position: absolute;
+    bottom: 3.5%;
+    left: 35%;
+    width: 30%;
+    text-align: center;
+    background: #68bdbb;
+    color: #fff;
+    line-height: 220%;
+    border-radius: 10px;
+}
+
+/** 珠子下落动画 **/
+.drop15 {
+    animation: dropMove 1.5s ease;
+    -webkit-animation: dropMove 1.5s linear;
+}
+
+.drop13 {
+    animation: dropMove 1.3s ease;
+    -webkit-animation: dropMove 1.3s linear;
+}
+
+.drop11 {
+    animation: dropMove 1.1s ease;
+    -webkit-animation: dropMove 1.1s linear;
+}
+
+.drop09 {
+    animation: dropMove .9s ease;
+    -webkit-animation: dropMove .9s linear;
+}
+
+@keyframes dropMove {
+    from {
+        top: 0
+    }
+    to {
+        top: 90%
+    }
+}
+
+@-webkit-keyframes dropMove {
+    from {
+        top: 0
+    }
+    to {
+        top: 90%
+    }
+}
+
+/** 降落过程禁止点击 **/
+.even-no {
+    pointer-events: none
+}

@@ -7,7 +7,6 @@
  * speed：降落速度  可选值 drop15 drop13  drop11  drop09
  * level：当前等级 默认为 1级
  * beadNum：珠子基数
- * speed = "drop15"
  * beatArr 当前数组
  * ansNum：当前等级答题次数
  * errorNum：当前错误次数

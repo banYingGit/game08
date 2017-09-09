@@ -177,16 +177,18 @@ img {
     content: attr(data-result);
 }
 
-.partA .basin {
-    background: url("../img/bo1.png") no-repeat top center;
+.part .basin {
+    background-image: url("../img/bo1.png") ;
+    background-position: top center;
+    background-repeat: no-repeat;
     background-size: 100% auto;
 }
 .partA .basin:after{
     left: -50%;
 }
-.partB .basin {
-    background: url("../img/bo2.png") no-repeat top center;
-    background-size: 100% auto;
+.part .basinB {
+    background-image: url("../img/bo2.png")!important;
+
 }
 .partB .basin:after{
     right: -50%;
@@ -245,4 +247,88 @@ img {
 /** 降落过程禁止点击 **/
 .even-no {
     pointer-events: none
+}
+
+/** 进度条 **/
+.process {
+    position: absolute;
+    top: 8%;
+    width: 60%;
+    left: 20%;
+    display: none;
+}
+
+.process-line {
+    position: absolute;
+    top: 50%;
+
+    left: 3%;
+    z-index: 0;
+    width: 94%;
+    height: 2px;
+    background: #002e73;
+}
+
+
+
+.process ul {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%
+}
+
+.process ul li p {
+    display: block;
+    height: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 1px 3px 10px #666 inset;
+    border-radius: 50%;
+    text-align: center;
+    color: #00b4a9;
+    line-height: 180%;
+    margin: 0 auto;
+}
+
+.process ul li p.correct {
+    color: #fff;
+    background: #00b4a9;
+    border: solid 3px #00b4a9;
+}
+.process ul li p.correct-big{
+    transform:scale(1.3);
+    -webkit-transform:scale(1.3);
+    -o-transform:scale(1.3);
+    -moz-transform:scale(1.3);
+}
+.process ul li:nth-child(1) {
+    margin: 0 !important;
+}
+
+.process ul li:nth-last-child(1) {
+    margin: 0 !important;
+}
+
+
+.process ul li {
+    width: 11.1111%;
+    float: left
+}
+
+.processB ul li:nth-child(1) p {
+    margin-left: 10px;
+}
+
+.processB ul li:nth-child(10) p {
+    margin-right: 10px;
+}
+/** 游戏暂停 **/
+.stop {
+    position: absolute;
+    top: 11%;
+    right: 7%;
+    width: 5%;
+    display: none;
+
 }

@@ -4,6 +4,7 @@
 
 
 /* 全局变量
+ * atuoTime60: 倒计时
  * speed：降落速度  可选值 drop15 drop13  drop11  drop09
  * level：当前等级 默认为 1级
  * beadNum：珠子基数
@@ -15,7 +16,8 @@
  *
  */
 
-var speed = "drop15",
+var atuoTime60,
+    speed = "drop15",
     level = 1,
     beadNum = 5,
     beatArr = [],
@@ -53,12 +55,86 @@ function _event() {
 
         $('#list').show().attr('data-role', 'test')
 
+        $('#stopBntBox').show()
+
+        $('#list .processB').show()
+
+        $('#processB ul li').eq(0).children('p').addClass('correct-big')
         _setPart()
 
 
     })
 
 
+    $('#stop').click(function () {
+
+        clearInterval(atuoTime60)
+
+        $('#stopBox').show()
+
+        $('#list').hide()
+
+    })
+    $('#continue').click(function () {
+
+        $('#stopBox').hide()
+        $('#list').show()
+
+        var $i = $('#hideDrop').text()
+
+
+        _time($i, function () {
+
+            var $level = "level" + level,
+
+                $obj = {};
+            chose.push("无")
+            $obj[$level] = chose
+            console.log('ansNum', ansNum)
+            if (ansNum >= 2) {
+
+                //设置进度条
+                _setProcess()
+
+                levelData.push($obj)
+
+                //进入新等级 清空本级当前值
+                ansNum = 0
+
+                errorNum = 0
+
+                beatArr = []
+
+                level = level + 1
+
+                chose = []
+
+            } else {
+                ansNum = ansNum + 1
+            }
+
+            if (level >= 10) {
+
+                //全部游戏结束
+                console.log('60秒到了level >= 10，自动结束')
+
+                $('#list').remove()
+
+                $('#over').show()
+
+                _over()
+
+
+            } else {
+
+                _setPart()
+
+            }
+
+        })
+
+
+    })
     $('.button[data-role="out"]').click(function () {
 
         _out()
@@ -80,6 +156,8 @@ function _clickBtn(e) {
     $('#basinA , #basinB').removeAttr('onclick')
 
     ansNum = ansNum + 1
+
+    $(e.target).addClass('basinB')
 
     // console.log('当前答题次数', ansNum)
 
@@ -152,6 +230,7 @@ function _clickBtn(e) {
 
         }
 
+
         $obj[$level] = chose
 
         // console.log('$obj', $obj)
@@ -179,8 +258,10 @@ function _clickBtn(e) {
         }
 
 
-
         if (ansNum >= 3) {
+
+            //设置进度条
+            _setProcess()
 
             levelData.push($obj)
 
@@ -194,9 +275,6 @@ function _clickBtn(e) {
             level = level + 1
 
             chose = []
-
-
-
 
         }
         setTimeout(function () {
@@ -221,6 +299,7 @@ function _clickBtn(e) {
 
         }, 2000)
 
+
     }
 
 
@@ -236,6 +315,7 @@ function _setPart() {
     //清空界面
     $('#basinA , #basinB').removeAttr('onclick').removeAttr('data-role').removeAttr('data-result')
 
+    $('#basinA , #basinB').removeClass('basinB')
 
     if (level <= 3) {
 
@@ -300,13 +380,81 @@ function _setPart() {
 
     console.log('当前数组为：', newBeat)
 
+    if ($('#list').attr('data-role') != 'practice') {
+
+        clearInterval(atuoTime60)
+
+        _time(60, function () {
+
+            var $level = "level" + level,
+
+                $obj = {};
+            chose.push("无")
+            $obj[$level] = chose
+            console.log('ansNum', ansNum)
+            if (ansNum >= 2) {
+
+                //设置进度条
+                _setProcess()
+
+                levelData.push($obj)
+
+                //进入新等级 清空本级当前值
+                ansNum = 0
+
+                errorNum = 0
+
+                beatArr = []
+
+                level = level + 1
+
+                chose = []
+
+            } else {
+                ansNum = ansNum + 1
+            }
+
+            if (level >= 10) {
+
+                //全部游戏结束
+                console.log('60秒到了level >= 10，自动结束')
+
+                $('#list').remove()
+
+                $('#over').show()
+
+                _over()
+
+
+            } else {
+
+                _setPart()
+
+            }
+
+        })
+    }
+
+}
+
+/*** 设置进度条
+ ***/
+function _setProcess() {
+
+    // var $el = part == "A" ? $('#processA ul') : $('#processB ul')
+
+    $('#processB ul li').eq(level - 1).children('p').addClass('correct').removeClass('correct-big')
+
+    $('#processB ul li').eq(level).children('p').addClass('correct-big')
+
+
 }
 
 
 //游戏结束
 function _over() {
 
-
+    clearInterval(atuoTime60)
     /* ajax 请求接口路径，返回json 数据
      * levelData: 每个的等级三次答题情况
      *
@@ -404,6 +552,36 @@ function _beatDropB(i, fn) {
 
 }
 
+
+/*** 倒计时
+ * i：时间
+ * fn：倒计时结束回调
+ ***/
+function _time(i, fn) {
+
+
+    var timeFn = function () {
+
+        $('#hideDrop').text(i)
+
+        i = i - 1
+
+        $('#time').text(i)
+
+        if (i == 0) {
+
+            clearInterval(atuoTime60)
+
+            fn && fn.call(this)
+
+        }
+
+    }
+
+    atuoTime60 = setInterval(timeFn, 300);
+
+
+}
 
 /*** 数组随机
  * arr：数组
